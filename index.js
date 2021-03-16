@@ -1,7 +1,40 @@
 //Write a program to print all permutations of a given String. For example, if given String is "GOD" then your program should print all 6 permutations of this string, e.g. "GOD," "OGD," "DOG," "GDO," "ODG," and "DGO." ----------***
-function permutations(str){
-let combos = []
-}
+const permutations = arr => {
+    const output = [];
+
+    //function that switches the array around
+    const swapInPlace = (arrSwap, indexA, indexB) => {
+        const temp = arrSwap[indexA];
+        arrSwap[indexA] = arrSwap[indexB];
+        arrSwap[indexB] = temp;
+    };
+
+    //edge case if the length only is 1
+    const generate = (n, heapArr) => {
+        if(n === 1){
+            // heapArr keeps changing so you make a copy of it using slice
+            output.push(heapArr.slice());
+            return;
+        }
+        //if it is not edge case do a for loop
+        generate(n - 1, heapArr);
+        for (let i = 0; i < n - 1; i++) {
+            if(i % 2 === 0) {
+                swapInPlace(heapArr, 1, n - 1);
+            } else {
+                swapInPlace(heapArr, 0, n-1);
+            }
+            generate(n - 1, heapArr)
+        }
+    };
+
+    generate(arr.length, arr.slice());
+
+    return output;
+};
+
+console.log(permutations([1,2,3]))
+
 //Program to print elements of an string present on odd position, along with the count of those elements in the entire string
 //i.e abbloseckc - a:1,b:2,o:1,e:1,k:1 -------------***
 function frequency(str){
