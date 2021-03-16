@@ -79,10 +79,19 @@ function frequency(str){
     return counter;
 };
 console.log(frequency("dsjkfhlakjhreinfw"))
+
 //Write a function that given a list of countries, returns the country(s) that occur the least times
 //i.e - ["Argentina", "Cuba", "Chile", "Argentina"] -> ["Cuba", "Chile"] -----------***
-function recurrence(arr){
-//get a frequency counter of the elements in the array
-    //use a for loop
-//return values with the lowest frequency
-}
+const leastFrequent = arr => {
+    const counter = {};
+    //get a frequency counter of the elements in the array
+    arr.forEach(function(country){
+        if(!counter[country]){
+            counter[country] = 0;
+        }
+        counter[country]++;
+    });
+    //return values with the lowest frequency
+    return Math.min(...Object(counter))
+}alues
+console.log(leastFrequent(["Argentina", "Cuba", "Chile", "Argentina"]))
