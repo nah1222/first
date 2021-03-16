@@ -1,39 +1,67 @@
 //Write a program to print all permutations of a given String. For example, if given String is "GOD" then your program should print all 6 permutations of this string, e.g. "GOD," "OGD," "DOG," "GDO," "ODG," and "DGO." ----------***
-const permutations = arr => {
-    const output = [];
 
-    //function that switches the array around
-    const swapInPlace = (arrSwap, indexA, indexB) => {
-        const temp = arrSwap[indexA];
-        arrSwap[indexA] = arrSwap[indexB];
-        arrSwap[indexB] = temp;
-    };
+const findPermutation = (string) => {
+    //edge cases
+    if (!string || typeof string !== "string"){
+        return "Please enter a string"
+    }else if (string.length < 2){
+        return string
+    }
+    //solutions
+    let permutationsArray = [];
 
-    //edge case if the length only is 1
-    const generate = (n, heapArr) => {
-        if(n === 1){
-            // heapArr keeps changing so you make a copy of it using slice
-            output.push(heapArr.slice());
-            return;
+    for(let i = 0; i < string.length; i++){
+        //Create a subproblem of string, even having size n/b
+        let char = string[i]
+        let remainingChars = string.slice(0, i) + string.slice(i + 1, string.length)
+
+        //Call procedure p recursicely on each subproblem
+        //Combime the results from the subproblems
+        for(let permutation of findPermutation(remainingChars)){
+            permutationsArray.push(char + permutation)
         }
-        //if it is not edge case do a for loop
-        generate(n - 1, heapArr);
-        for (let i = 0; i < n - 1; i++) {
-            if(i % 2 === 0) {
-                swapInPlace(heapArr, 1, n - 1);
-            } else {
-                swapInPlace(heapArr, 0, n-1);
-            }
-            generate(n - 1, heapArr)
-        }
-    };
+        
+    }
+    return permutationsArray
+}
+console.log(findPermutation("god"))
 
-    generate(arr.length, arr.slice());
+//Heap's algorithm
+// const permutations = arr => {
+//     const output = [];
 
-    return output;
-};
+//     //function that switches the array around
+//     const swapInPlace = (arrSwap, indexA, indexB) => {
+//         const temp = arrSwap[indexA];
+//         arrSwap[indexA] = arrSwap[indexB];
+//         arrSwap[indexB] = temp;
+//     };
 
-console.log(permutations([1,2,3]))
+//     //edge case if the length only is 1
+//     const generate = (n, heapArr) => {
+//         if(n === 1){
+//             // heapArr keeps changing so you make a copy of it using slice
+//             output.push(heapArr.slice());
+//             return;
+//         }
+//         //if it is not edge case do a for loop
+//         generate(n - 1, heapArr);
+//         for (let i = 0; i < n - 1; i++) {
+//             if(i % 2 === 0) {
+//                 swapInPlace(heapArr, 1, n - 1);
+//             } else {
+//                 swapInPlace(heapArr, 0, n-1);
+//             }
+//             generate(n - 1, heapArr)
+//         }
+//     };
+
+//     generate(arr.length, arr.slice());
+
+//     return output;
+// };
+
+// console.log(permutations([1,2,3]))
 
 //Program to print elements of an string present on odd position, along with the count of those elements in the entire string
 //i.e abbloseckc - a:1,b:2,o:1,e:1,k:1 -------------***
